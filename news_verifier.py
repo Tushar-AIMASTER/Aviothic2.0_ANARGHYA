@@ -1,6 +1,7 @@
 
 import requests
 import feedparser
+
 from newsapi import NewsApiClient
 from bs4 import BeautifulSoup
 import re
@@ -16,7 +17,7 @@ class NewsVerifier:
     def __init__(self):
         self.config = Config()
         self.newsapi = None
-        if self.config.NEWS_API_KEY and self.config.NEWS_API_KEY != 'your-newsapi-key':
+        if self.config.NEWS_API_KEY and self.config.NEWS_API_KEY != '8b335dc6442443eca479b1bf193cfc68':
             self.newsapi = NewsApiClient(api_key=self.config.NEWS_API_KEY)
         self.logger = logging.getLogger(__name__)
         
