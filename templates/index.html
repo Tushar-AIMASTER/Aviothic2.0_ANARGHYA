@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vidya Jyoti - News & Audio Verification Platform</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <img id="logo" src="{{ url_for('static', filename='logo.jpg') }}"></i>
+                <strong><div class="logo">
+                    <span style="display: flex; align-items: center; height: 100%;" id="logo-text">विद्याJYOTI</span>
+                </div></strong>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#news-verification">
+                            <i class="fas fa-newspaper me-1"></i>News Verification
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#audio-verification">
+                            <i class="fas fa-microphone me-1"></i>Audio Detection
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about-us">
+                            <i class="fas fa-users me-1"></i>About Us
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact-us">
+                            <i class="fas fa-envelope me-1"></i>Contact Us
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="hero-section">
+        <div class="container">
+            <div class="row justify-content-center text-center">
+                <div class="col-lg-8">
+                    <h1 class="hero-title">
+                        <img id="logo-home" src="{{ url_for('static', filename='logo.jpg') }}"></i>
+
+                        <strong><div id="logo-text-home">
+                            <span>विद्याJYOTI</span>
+                        </div></strong>
+                    </h1>
+                    <p class="hero-subtitle">Advanced News & Audio Verification Platform</p>
+                    <p class="hero-description">
+                        Verify the authenticity of news headlines and detect AI-generated audio using cutting-edge technology
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container mt-5">
+        <!-- News Verification Section -->
+        <section id="news-verification" class="news-verification-section">
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <div class="card shadow-lg border-0">
+                        <div class="card-header bg-gradient-primary text-white">
+                            <div class="d-flex align-items-center">
+                                <i class="fas fa-newspaper fa-2x me-3"></i>
+                                <div>
+                                    <h2 class="card-title mb-0"> News Headline Verification</h2>
+                                    <p class="mb-0">Verify the authenticity of news headlines across multiple sources</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body p-4">
+                            <form id="verificationForm">
+                                <div class="mb-4">
+                                    <label for="headline" class="form-label h5">
+                                        <i class="fas fa-edit me-2"></i>Enter News Headline to Verify:
+                                    </label>
+                                    <textarea class="form-control form-control-lg" id="headline" name="headline" rows="3" 
+                                        placeholder="e.g., Breaking: Major earthquake hits California causing widespread damage"
+                                        required></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-primary btn-lg w-100" id="verifyBtn">
+                                    <span class="spinner-border spinner-border-sm d-none" id="spinner"></span>
+                                    <i class="fas fa-search me-2"></i>Verify Headline
+                                </button>
+                            </form>
+                            
+                            <div id="news-results" class="mt-4 d-none">
+                                <!-- News verification results will be displayed here -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Audio Verification Section -->
+        <section id="audio-verification" class="audio-verification-section">
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <div class="card shadow-lg border-0">
+                        <div class="card-header bg-gradient-success text-white">
+                            <div class="d-flex align-items-center">
+                                <i class="fas fa-microphone fa-2x me-3"></i>
+                                <div>
+                                    <h2 class="card-title mb-0"> AI Audio Deepfake Detection</h2>
+                                    <p class="mb-0">Detect AI-generated audio using advanced machine learning</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body p-4">
+                            <form id="audioForm" enctype="multipart/form-data">
+                                <div class="mb-4">
+                                    <label for="audioFile" class="form-label h5">
+                                        <i class="fas fa-upload me-2"></i>Upload Audio File:
+                                    </label>
+                                    <div class="upload-zone" id="uploadZone">
+                                        <div class="upload-content text-center">
+                                            <i class="fas fa-cloud-upload-alt fa-3x text-muted mb-3"></i>
+                                            <h5>Drag & Drop Audio File Here</h5>
+                                            <p class="text-muted">Or click to browse files</p>
+                                            <div class="supported-formats mt-3">
+                                                <span class="badge bg-light text-dark me-1">MP3</span>
+                                                <span class="badge bg-light text-dark me-1">WAV</span>
+                                                <span class="badge bg-light text-dark me-1">FLAC</span>
+                                                <span class="badge bg-light text-dark me-1">M4A</span>
+                                                <span class="badge bg-light text-dark me-1">OGG</span>
+                                            </div>
+                                        </div>
+                                        <input type="file" id="audioFile" name="file" class="d-none" 
+                                               accept=".mp3,.wav,.flac,.m4a,.ogg">
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-success btn-lg w-100" id="audioBtn" disabled>
+                                    <span class="spinner-border spinner-border-sm d-none" id="audioSpinner"></span>
+                                    <i class="fas fa-brain me-2"></i>Analyze Audio
+                                </button>
+                            </form>
+                            
+                            <div id="audio-results" class="mt-4 d-none">
+                                <!-- Audio analysis results will be displayed here -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="features-section">
+            <div class="row">
+                <div class="col-md-6 mb-4">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="card-body text-center p-4">
+                            <i class="fas fa-newspaper fa-3x text-primary mb-3"></i>
+                            <h4>News Verification</h4>
+                            <ul class="list-unstyled text-start">
+                                <li><i class="fas fa-check text-success me-2"></i>Searches multiple news APIs and RSS feeds</li>
+                                <li><i class="fas fa-check text-success me-2"></i>Cross-references with fact-checking websites</li>
+                                <li><i class="fas fa-check text-success me-2"></i>Calculates authenticity score based on source credibility</li>
+                                <li><i class="fas fa-check text-success me-2"></i>Provides detailed What, When, Where, Why analysis</li>
+                                <li><i class="fas fa-check text-success me-2"></i>Supports both international and Indian news sources</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="card-body text-center p-4">
+                            <i class="fas fa-microphone fa-3x text-success mb-3"></i>
+                            <h4>Audio Deepfake Detection</h4>
+                            <ul class="list-unstyled text-start">
+                                <li><i class="fas fa-check text-success me-2"></i>Advanced audio feature extraction</li>
+                                <li><i class="fas fa-check text-success me-2"></i>MFCC and spectral analysis</li>
+                                <li><i class="fas fa-check text-success me-2"></i>Waveform and spectrogram visualization</li>
+                                <li><i class="fas fa-check text-success me-2"></i>AI-powered deepfake detection</li>
+                                <li><i class="fas fa-check text-success me-2"></i>Multiple audio format support</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <!-- About Us Section -->
+    <section id="about-us" class="mb-5">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-12">
+                    <div class="team-section">
+                        <div class="team-header">
+                            <i class="fas fa-users me-2"></i>
+                            <h1 class="team-title">Meet the Team</h1>
+                        </div>
+                        
+                        
+                        <!-- Team Leader -->
+                        <div class="team-leader">
+                            <div class="team-member-card leader-card">
+                                <div class="member-image">
+                                    <img src="{{ url_for('static', filename='tushar.jpg') }}" alt="Tushar Srivastava" class="member-photo">
+                                </div>
+                                <div class="member-info">
+                                    <h3 class="member-name">Tushar Srivastava</h3>
+                                    <div class="member-role">
+                                        <span class="role-badge leader-badge">Team Leader</span>
+                                        <span class="role-badge leader-badge">Core Developer</span>
+
+                                        <a href="https://www.linkedin.com/in/tushar-srivastava-aimaster" class="linkedin-link">
+                                            <i class="fab fa-linkedin"></i>
+                                        </a>
+                                    </div>
+                                    <p class="member-bio">
+                                        Tushar Srivastava is our Team Leader with over 4 years of experience in AI and machine learning, known for leading innovation through hands-on development. 
+                                        As the Team Leader for this project, he took full ownership of both the strategic direction and technical execution. Tushar personally developed the majority of the project architecture and codebase, ensuring every component meets the highest standards of quality and performance.
+                                        His approach combines strong leadership skills with deep technical expertise, allowing him to guide the team while remaining actively involved in the development process. This hands-on leadership style enabled the team to deliver a robust, scalable solution that exceeds project requirements.
+
+
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Team Members -->
+                        <div class="team-members">
+                            <div class="team-member-card">
+                                <div class="member-image">
+                                    <img src="{{ url_for('static', filename='pragati.jpg') }}" alt="Pragati Shukla" class="member-photo">
+                                </div>
+                                <div class="member-info">
+                                    <h3 class="member-name">Pragati Shukla</h3>
+                                    <div class="member-role">
+                                        <span class="role-badge">Frontend Development</span>
+                                        <a href="https://www.linkedin.com/in/pragati-shukla-6a42a3323" class="linkedin-link">
+                                            <i class="fab fa-linkedin"></i>
+                                        </a>
+                                    </div>
+                                    <p class="member-bio">
+                                        A passionate tech explorer, innovative web creator, and dedicated AI/ML learner, transforming ideas into impactful projects with creativity and precision.
+
+                                        Skilled in bridging technology and design, crafting seamless user experiences while diving deep into cutting-edge artificial intelligence and machine learning techniques. 
+                                    </p>
+                                </div>
+                            </div>
+
+                            
+
+                            <div class="team-member-card">
+                                <div class="member-image">
+                                    <img src="{{ url_for('static', filename='ankita.jpg') }}" alt="Ankita Sharma" class="member-photo">
+                                </div>
+                                <div class="member-info">
+                                    <h3 class="member-name">Ankita Sharma</h3>
+                                    <div class="member-role">
+                                        <span class="role-badge">Frontend Development</span>
+                                        <a href="https://www.linkedin.com/in/ankita-sharma-4b3275339" class="linkedin-link">
+                                            <i class="fab fa-linkedin"></i>
+                                        </a>
+                                    </div>
+                                    <p class="member-bio">
+                                        I am Ankita Sharma, a passionate enthusiast of technology and innovation, devoted to continuous learning and growth. With a steadfast focus on honing my skills, I consistently seek out new knowledge and challenges to push the boundaries of what is possible. Driven by a deep commitment to excellence and a desire to create meaningful impact, I approach every project with dedication, creativity, and resilience.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="team-member-card">
+                                <div class="member-image">
+                                    <img src="{{ url_for('static', filename='shivani.jpg') }}" alt="Shivani Tripathi" class="member-photo">
+                                </div>
+                                <div class="member-info">
+                                    <h3 class="member-name">Shivani Tripathi</h3>
+                                    <div class="member-role">
+                                        <span class="role-badge">Backend Development</span>
+                                        <a href="https://www.linkedin.com/in/shivani-tripathi-54298233b" class="linkedin-link">
+                                            <i class="fab fa-linkedin"></i>
+                                        </a>
+                                    </div>
+                                    <p class="member-bio">
+                                        Shivani Tripathi is a committed innovator and technology enthusiast dedicated to harnessing the power of digital tools to solve impactful problems. 
+                                        With a focus on practical applications and user-centric design, she strives to create solutions that are both reliable and accessible.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="team-member-card">
+                                <div class="member-image">
+                                    <img src="{{ url_for('static', filename='Niharika.jpg') }}" alt="Niharika Gupta" class="member-photo">
+                                </div>
+                                <div class="member-info">
+                                    <h3 class="member-name">Niharika Gupta</h3>
+                                    <div class="member-role">
+                                        <span class="role-badge">Frontend Development</span>
+                                        <a href="https://www.linkedin.com/in/niharika-gupta-a1035533a" class="linkedin-link">
+                                            <i class="fab fa-linkedin"></i>
+                                        </a>
+                                    </div>
+                                    <p class="member-bio">
+                                        I am Niharika Gupta, a dedicated creator focused on leveraging technology to address real-world challenges. With a strong commitment to innovation and problem-solving, I strive to develop practical solutions that have a positive impact on society. Currently, my vision is to build a reliable and user-friendly platform that fosters trust, awareness, and integrity in the digital space.
+
+
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    
+    <!-- Contact Us Section -->
+    <section id="contact-us" class="contact-us-section">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <div class="card shadow-lg border-0">
+                    <div class="card-header bg-gradient-success text-white">
+                        <div class="d-flex align-items-center">
+                            <i class="fas fa-envelope fa-2x me-3"></i>
+                            <div>
+                                <h2 class="card-title mb-0"> Contact Us</h2>
+                                <p class="mb-0">We are a team of developers who are passionate about using technology to make a positive impact on society.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body p-4">
+                        <div class="text-center">
+                            <h4>Get in Touch</h4>
+                            <p>Have questions or suggestions? We'd love to hear from you!</p>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="contact-info">
+                                        <i class="fas fa-envelope fa-2x text-primary mb-3"></i>
+                                        <h5>Email Us</h5>
+                                        <p>sri.tushar16@gmail.com</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="contact-info">
+                                        <i class="fas fa-phone fa-2x text-success mb-3"></i>
+                                        <h5>Call Us</h5>
+                                        <p>_</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white text-center py-4 mt-5">
+        <div class="container">
+            <p class="mb-0">&copy; 2025 Vidya Jyoti - Advanced News & Audio Verification Platform</p>
+            
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

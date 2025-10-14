@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Audio AI Detection</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #FFE066 0%, #FFB366 50%, #FF69B4 100%);
+            color: #2c3e50;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px 0;
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            color: #2c3e50;
+            text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.8);
+            font-weight: bold;
+        }
+        
+        .header p {
+            font-size: 1.1em;
+            color: #34495e;
+            font-weight: 500;
+        }
+        
+        .upload-section {
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 15px;
+            padding: 40px;
+            text-align: center;
+            border: 2px dashed #28a745;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+        
+        .upload-section:hover {
+            border-color: #20c997;
+            box-shadow: 0 10px 30px rgba(40, 167, 69, 0.2);
+            background: rgba(255, 255, 255, 0.4);
+        }
+        
+        .file-input {
+            display: none;
+        }
+        
+        .upload-button {
+            display: inline-block;
+            background: linear-gradient(45deg, #2196F3, #21CBF3);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: 600;
+            border: none;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        
+        .upload-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(33, 150, 243, 0.4);
+        }
+        
+        .file-info {
+            margin: 20px 0;
+            padding: 15px;
+            background: rgba(33, 150, 243, 0.1);
+            border-radius: 10px;
+            display: none;
+            color: #2c3e50;
+        }
+        
+        .analyze-button {
+            background: linear-gradient(45deg, #28a745, #20c997);
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: 600;
+            margin-top: 15px;
+            display: none;
+            transition: all 0.3s ease;
+        }
+        
+        .analyze-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(40, 167, 69, 0.4);
+        }
+        
+        .loading {
+            display: none;
+            margin: 20px 0;
+        }
+        
+        .spinner {
+            border: 4px solid rgba(33, 150, 243, 0.1);
+            border-left: 4px solid #2196F3;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .error-message {
+            background: rgba(220, 53, 69, 0.1);
+            border: 1px solid rgba(220, 53, 69, 0.3);
+            color: #dc3545;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            display: none;
+        }
+        
+        .supported-formats {
+            margin-top: 30px;
+            text-align: center;
+            color: #34495e;
+        }
+        
+        .formats-list {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .format-badge {
+            background: rgba(33, 150, 243, 0.2);
+            color: #2c3e50;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.9em;
+            font-weight: 500;
+        }
+        
+        .navigation {
+            text-align: center;
+            margin-top: 40px;
+        }
+        
+        .nav-link {
+            display: inline-block;
+            color: #2196F3;
+            text-decoration: none;
+            margin: 0 15px;
+            padding: 10px 20px;
+            border: 1px solid rgba(33, 150, 243, 0.3);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+        
+        .nav-link:hover {
+            background: rgba(33, 150, 243, 0.1);
+            border-color: #2196F3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>AI Audio Detection</h1>
+            <p>Upload an audio file to detect if it's AI-generated or real human speech</p>
+        </div>
+        
+        <div class="upload-section">
+            <form id="uploadForm" enctype="multipart/form-data" method="post" action="/upload">
+                <input type="file" id="audioFile" name="file" class="file-input" accept=".wav,.mp3,.flac,.ogg,.m4a">
+                <label for="audioFile" class="upload-button">
+                    📁 Choose Audio File
+                </label>
+                
+                <div id="fileInfo" class="file-info">
+                    <p id="fileName"></p>
+                    <button type="submit" id="analyzeBtn" class="analyze-button">🔍 Analyze Audio</button>
+                </div>
+                
+                <div id="loading" class="loading">
+                    <div class="spinner"></div>
+                    <p>Analyzing audio... Please wait</p>
+                </div>
+                
+                <div id="errorMessage" class="error-message"></div>
+            </form>
+        </div>
+        
+        <div class="supported-formats">
+            <p>Supported formats:</p>
+            <div class="formats-list">
+                <span class="format-badge">WAV</span>
+                <span class="format-badge">MP3</span>
+                <span class="format-badge">FLAC</span>
+                <span class="format-badge">OGG</span>
+                <span class="format-badge">M4A</span>
+            </div>
+        </div>
+        
+        <div class="navigation">
+            <a href="/" class="nav-link">🏠 Home</a>
+            <a href="/result" class="nav-link">📊 Results</a>
+        </div>
+    </div>
+
+    <script>
+        const fileInput = document.getElementById('audioFile');
+        const fileInfo = document.getElementById('fileInfo');
+        const fileName = document.getElementById('fileName');
+        const analyzeBtn = document.getElementById('analyzeBtn');
+        const uploadForm = document.getElementById('uploadForm');
+        const loading = document.getElementById('loading');
+        const errorMessage = document.getElementById('errorMessage');
+        
+        fileInput.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                fileName.textContent = `Selected: ${file.name} (${(file.size / (1024*1024)).toFixed(2)} MB)`;
+                fileInfo.style.display = 'block';
+                analyzeBtn.style.display = 'inline-block';
+                errorMessage.style.display = 'none';
+            }
+        });
+        
+        uploadForm.addEventListener('submit', function(e) {
+            const file = fileInput.files[0];
+            if (!file) {
+                e.preventDefault();
+                showError('Please select an audio file first');
+                return;
+            }
+            
+            // Show loading
+            loading.style.display = 'block';
+            analyzeBtn.disabled = true;
+            analyzeBtn.textContent = 'Processing...';
+            errorMessage.style.display = 'none';
+        });
+        
+        function showError(message) {
+            errorMessage.textContent = message;
+            errorMessage.style.display = 'block';
+            loading.style.display = 'none';
+            analyzeBtn.disabled = false;
+            analyzeBtn.textContent = '🔍 Analyze Audio';
+        }
+    </script>
+    <footer class="bg-dark text-white text-center py-4 mt-5">
+        <div class="container">
+            <p class="mb-0">&copy; 2025 Vidya Jyoti - Advanced News & Audio Verification Platform</p>
+            
+        </div>
+    </footer>
+</body>
+</html>
