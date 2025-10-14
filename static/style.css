@@ -1,7 +1,9 @@
 /* Custom styles for Vidya Jyoti - Unified Platform */
 
 body {
-    background: linear-gradient(135deg, #FFE066 0%, #FFB366 50%, #FF69B4 100%);
+    background: linear-gradient(135deg, #001f3f 0%, #003366 50%, #004080 100%);
+     color: #e6f0ff;
+
     min-height: 100vh;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     color: #2c3e50;
@@ -39,28 +41,81 @@ body {
 
 /* Hero Section */
 .hero-section {
-    background: rgba(255, 255, 255, 0.2);
-    backdrop-filter: blur(10px);
-    padding: 120px 0 80px;
-    margin-top: 56px;
-    border-radius: 20px;
-    margin: 56px 20px 0 20px;
+    position: relative;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+  
+.spline-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.spline-background iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  color: #e6f0ff;
+  animation: fadeInUp 1.8s ease forwards;
 }
 
 .hero-title {
-    font-size: 3.5rem;
-    font-weight: bold;
-    color: #2c3e50;
-    margin-bottom: 1rem;
-    text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.8);
+  font-size: 3rem;
+  text-shadow: 0 0 20px #00ccff;
+  font-weight: 700;
 }
 
 .hero-subtitle {
-    font-size: 1.5rem;
-    color: #34495e;
-    margin-bottom: 1rem;
-    font-weight: 600;
+  font-size: 1.3rem;
+  margin-top: 10px;
+  color: #cfe8ff;
 }
+
+.glow-btn {
+  display: inline-block;
+  margin: 15px;
+  padding: 12px 25px;
+  font-weight: 600;
+  color: #fff;
+  border: 2px solid #00ccff;
+  border-radius: 30px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  background: rgba(0, 102, 204, 0.3);
+  box-shadow: 0 0 15px rgba(0, 204, 255, 0.4);
+}
+
+.glow-btn:hover {
+  background: rgba(0, 204, 255, 0.4);
+  box-shadow: 0 0 25px #00ccff;
+  transform: translateY(-3px);
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 
 .hero-description {
     font-size: 1.1rem;

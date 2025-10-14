@@ -49,25 +49,31 @@
     </nav>
 
     <!-- Hero Section -->
-    <div class="hero-section">
-        <div class="container">
-            <div class="row justify-content-center text-center">
-                <div class="col-lg-8">
-                    <h1 class="hero-title">
-                        <img id="logo-home" src="{{ url_for('static', filename='logo.jpg') }}"></i>
+     <!-- Hero Section -->
+<section class="hero-section">
+  <div class="spline-background">
+    <iframe 
+      src="https://my.spline.design/your-scenename-xxxxx/" 
+      frameborder="0"
+      width="100%" 
+      height="100%">
+    </iframe>
+  </div>
 
-                        <strong><div id="logo-text-home">
-                            <span>विद्याJYOTI</span>
-                        </div></strong>
-                    </h1>
-                    <p class="hero-subtitle">Advanced News & Audio Verification Platform</p>
-                    <p class="hero-description">
-                        Verify the authenticity of news headlines and detect AI-generated audio using cutting-edge technology
-                    </p>
-                </div>
-            </div>
-        </div>
+  <div class="hero-content">
+    <div class="container text-center">
+      <h1 class="hero-title">
+        <img id="logo-home" src="{{ url_for('static', filename='logo.jpg') }}" alt="Vidya Jyoti Logo" />
+        <strong><span class="logo-text">विद्याJYOTI</span></strong>
+      </h1>
+      <p class="hero-subtitle">Advanced Fake News & Audio Deepfake Detection</p>
+      <a href="#news-verification" class="glow-btn">📰 Try News Detector</a>
+      <a href="#audio-verification" class="glow-btn">🎧 Try Audio Detector</a>
     </div>
+  </div>
+</section>
+
+    
 
     <!-- Main Content -->
     <div class="container mt-5">
