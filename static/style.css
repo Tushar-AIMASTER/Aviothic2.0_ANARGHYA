@@ -324,7 +324,7 @@ body {
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.2);
     flex: 0 0 300px;
-    min-width: 300px;
+    min-width: 400px;
 }
 
 .team-member-card:hover {
