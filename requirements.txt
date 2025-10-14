@@ -1,0 +1,13 @@
+flask
+python-dotenv
+newsapi-python
+feedparser
+beautifulsoup4
+requests
+fuzzywuzzy
+python-levenshtein
+librosa
+numpy
+matplotlib
+scikit-learn
+joblib
