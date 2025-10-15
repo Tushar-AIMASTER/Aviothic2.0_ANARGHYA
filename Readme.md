@@ -36,8 +36,12 @@ The rapid spread of fake news and misinformation across digital platforms poses 
 
   - Visual Analysis: To provide a comprehensive analysis, the application generates and displays several visualizations of the audio, including a waveform, a spectrogram, and an MFCC features plot.
 
-  - User-Friendly Interface: The web interface makes it easy to upload audio files and view the results, which include the prediction (e.g., 'REAL_HUMAN' or 'AI_GENERATED'), a confidence score, and the visual analysis. 
+  - User-Friendly Interface: The web interface makes it easy to upload audio files and view the results, which include the prediction (e.g., 'REAL_HUMAN' or 'AI_GENERATED'), a confidence score, and the visual analysis.
 
+### Screenshots
+![WhatsApp Image 2025-10-15 at 4 14 55 PM](https://github.com/user-attachments/assets/e82e75ca-3529-44a1-8c27-c1d60042d851)
+![WhatsApp Image 2025-10-15 at 4 14 54 PM](https://github.com/user-attachments/assets/2ef93279-7b10-4ee5-b0f0-4aa44d3e73b1)
+![WhatsApp Image 2025-10-15 at 4 14 54 PM (1)](https://github.com/user-attachments/assets/dbfb4028-1b2f-4179-956c-c4ce5daac902)
 
 
 ## 🛠️ Technology Stack
