@@ -12,7 +12,7 @@ class Config:
     NEWS_API_KEY = os.environ.get('NEWS_API_KEY') or '8b335dc6442443eca479b1bf193cfc68'
     
     # Google Fact Check API (optional - free tier available)
-    GOOGLE_API_KEY = os.environ.get('GOOGLE_API_KEY') or None
+    GOOGLE_API_KEY = os.environ.get('GOOGLE_API_KEY') or 'AIzaSyBKsCJLkKVv7ghUEdo-SjnhKCZRo6c0ujQ'
     
     # Rate limiting
     REQUESTS_PER_MINUTE = 60

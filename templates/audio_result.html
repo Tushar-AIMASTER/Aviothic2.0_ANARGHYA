@@ -11,9 +11,13 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
         body {
+            
+            background: linear-gradient(135deg, #001f3f 0%, #003366 50%, #004080 100%);
+            color: #e6f0ff;
+
+
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #FFE066 0%, #FFB366 50%, #FF69B4 100%);
-            color: #2c3e50;
+            
             min-height: 100vh;
             line-height: 1.6;
             padding-top: 80px; /* Add padding to account for fixed navbar */
@@ -177,7 +181,7 @@
             <a class="navbar-brand" href="/">
                 <img id="logo" src="{{ url_for('static', filename='logo.jpg') }}"></i>
                 <strong><div class="logo">
-                    <span style="display: flex; align-items: center; height: 100%;" id="logo-text">विद्याJYOTI</span>
+                    <span style="display: flex; align-items: center; height: 100%;" id="logo-text">सत्याARTH</span>
                 </div></strong>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -212,7 +216,7 @@
 
     <div class="container">
         <div class="header">
-            <h1>Audio Analysis Results</h1>
+            <h1 style="color: #fafa8e;">Audio Analysis Results</h1>
             <p>AI-powered deepfake detection analysis</p>
         </div>
         
@@ -226,7 +230,7 @@
                         👤 Real Human
                     {% endif %}
                 </div>
-                <div class="confidence">Confidence: {{ confidence }}</div>
+                <div class="confidence" style="color: #ffffff;">Confidence: {{ confidence }}</div>
                 <p style="margin-top: 15px; opacity: 0.8;">
                     File: {{ filename }}
                 </p>

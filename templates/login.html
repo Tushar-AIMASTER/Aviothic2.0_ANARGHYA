@@ -145,8 +145,8 @@
   </style>
 </head>
 <body>
-  <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
+      <!-- Navigation -->
+      <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
         <div class="container">
             <a class="navbar-brand" href="/">
                 <img id="logo" src="{{ url_for('static', filename='logo.jpg') }}"></i>
@@ -160,25 +160,30 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link active" href="#news-verification">
+                        <a class="nav-link" href="/#news-verification">
                             <i class="fas fa-newspaper me-1"></i>News Verification
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#audio-verification">
+                        <a class="nav-link active" href="/#audio-verification">
                             <i class="fas fa-microphone me-1"></i>Audio Detection
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#about-us">
+                        <a class="nav-link" href="/#about-us">
                             <i class="fas fa-users me-1"></i>About Us
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/#contact-us">
+                            <i class="fas fa-envelope me-1"></i>Contact Us
                         </a>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
-  <div class="background"></div>
+<div class="background"></div>
 
   <div class="login-card">
     <h2><i class="fas fa-shield-alt"></i> Login</h2>
