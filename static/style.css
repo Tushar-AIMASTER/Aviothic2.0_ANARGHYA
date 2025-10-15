@@ -1,4 +1,4 @@
-/* Custom styles for Vidya Jyoti - Unified Platform */
+/* Global Styles */
 
 body {
     background: linear-gradient(135deg, #001f3f 0%, #003366 50%, #004080 100%);
@@ -314,7 +314,7 @@ body {
 #logo-home {
     width: 100px;
     height: 100px;
-    border-radius: 50%;
+    border-radius: 25%;
     object-fit: cover;
     margin-right: 10px;
     margin-left: 10px;
