@@ -27,7 +27,7 @@ class Config:
     # News sources for scraping (backup when API limits reached)
     NEWS_SOURCES = [
         # International sources
-        #'https://feeds.bbci.co.uk/news/rss.xml',
+        'https://feeds.bbci.co.uk/news/rss.xml',
         #'https://rss.cnn.com/rss/edition.rss',
         #'https://feeds.npr.org/1001/rss.xml',
         #'https://feeds.reuters.com/reuters/topNews',
