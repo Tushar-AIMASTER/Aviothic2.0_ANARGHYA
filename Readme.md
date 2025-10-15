@@ -1,4 +1,4 @@
-# VIDYA JYOTI:  AI-Powered Tool for Combating Misinformation 
+# सत्याARTH:  AI-Powered Tool for Combating Misinformation 
 
 An innovative Generative AI-powered solution built with Google Cloud to detect potential misinformation and educate users on identifying credible, trustworthy content.
 
@@ -167,6 +167,7 @@ ai-misinformation-detector/
 ├── requirements.txt
 ├── rerec_MLP.pkl
 ├── app.py
+├── config.py
 ├── utils.py
 ├── news_verifier.py
 ├── config/
@@ -176,13 +177,14 @@ ai-misinformation-detector/
 │   ├── tushar.jpg
 │   ├── Niharika.jpg
 │   ├── pragati.jpg
-│   ├── shivani.jpg
-│   └── ankita.jpg
+│   └── shreya.jpg
 │
 ├── templates/
 │   ├── index.html
 │   ├── audio.html
 │   ├── audio_result.html
+|   ├── signup.html
+|   ├── contact_us.html
 └── .env
 
 
@@ -203,8 +205,8 @@ ai-misinformation-detector/
 - **Tushar Srivastava** - Project Lead | Full Stack Developer | Core Programmer
 - **Pragati Shukla** - Frontend Developer 
 - **Niharika Gupta** - Frontend Developer
-- **Ankita Sharma** - Frontend Developer
-- **Shivani Tripathi** - Frontend Developer
+- **Shreya Kushwaha** - Documentation
+
 
 ## 🙏 Acknowledgments
 
@@ -221,4 +223,5 @@ ai-misinformation-detector/
 - [ ] Regional language support expansion
 - [ ] Integration with social media platforms
 - [ ] Real-time monitoring dashboard
+- [ ] Multilingual Support
 
