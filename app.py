@@ -376,6 +376,11 @@ def api_analyze():
 
     return jsonify({'error': 'Invalid file format'}), 400
 
+@app.route('/login')
+def login():
+    """Render the Login page"""
+    return render_template('login.html')
+
 @app.errorhandler(404)
 def not_found(error):
     return render_template('index.html'), 404
