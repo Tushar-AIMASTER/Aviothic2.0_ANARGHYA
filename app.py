@@ -381,6 +381,11 @@ def login():
     """Render the Login page"""
     return render_template('login.html')
 
+@app.route('/signup')
+def signup():
+    """Render the Signup page"""
+    return render_template('signup.html')
+
 @app.errorhandler(404)
 def not_found(error):
     return render_template('index.html'), 404
