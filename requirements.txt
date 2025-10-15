@@ -11,3 +11,4 @@ numpy
 matplotlib
 scikit-learn
 joblib
+supabase

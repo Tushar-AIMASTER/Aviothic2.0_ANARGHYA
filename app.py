@@ -14,6 +14,7 @@ import joblib
 from sklearn.preprocessing import StandardScaler
 from news_verifier import NewsVerifier
 from config import Config
+from supabase import create_client, Client
 
 app = Flask(__name__)
 app.config.from_object(Config)
@@ -33,6 +34,15 @@ logger = logging.getLogger(__name__)
 
 # Initialize the news verifier
 news_verifier = NewsVerifier()
+
+# Initialize Supabase client
+supabase: Client = None
+if Config.SUPABASE_URL and Config.SUPABASE_ANON_KEY:
+    try:
+        supabase = create_client(Config.SUPABASE_URL, Config.SUPABASE_ANON_KEY)
+        logger.info("Supabase client initialized")
+    except Exception as e:
+        logger.error(f"Failed to initialize Supabase: {str(e)}")
 
 # Load the trained MLP model
 try:
@@ -376,15 +386,117 @@ def api_analyze():
 
     return jsonify({'error': 'Invalid file format'}), 400
 
-@app.route('/login')
+@app.route('/login', methods=['GET', 'POST'])
 def login():
-    """Render the Login page"""
+    """Render the Login page and handle login"""
+    if request.method == 'POST':
+        try:
+            email = request.form.get('email', '').strip()
+            password = request.form.get('password', '')
+            if not email or not password:
+                flash('Email and password are required', 'danger')
+                return redirect(url_for('login'))
+
+            if not supabase:
+                flash('Auth service not configured', 'danger')
+                return redirect(url_for('login'))
+
+            auth_res = supabase.auth.sign_in_with_password({
+                'email': email,
+                'password': password
+            })
+
+            if not auth_res or not getattr(auth_res, 'user', None):
+                flash('Invalid credentials', 'danger')
+                return redirect(url_for('login'))
+
+            # Store minimal session data
+            session['user'] = {
+                'id': auth_res.user.id,
+                'email': auth_res.user.email
+            }
+            flash('Logged in successfully', 'success')
+            return redirect(url_for('dashboard'))
+        except Exception as e:
+            logger.error(f"Login error: {str(e)}")
+            flash('Login failed', 'danger')
+            return redirect(url_for('login'))
     return render_template('login.html')
 
-@app.route('/signup')
+@app.route('/signup', methods=['GET', 'POST'])
 def signup():
-    """Render the Signup page"""
+    """Render the Signup page and handle registration"""
+    if request.method == 'POST':
+        full_name = request.form.get('full_name', '').strip()
+        email = request.form.get('email', '').strip()
+        password = request.form.get('password', '')
+        confirm_password = request.form.get('confirm_password', '')
+        accept_terms = request.form.get('accept_terms') == 'on'
+
+        if not full_name or not email or not password:
+            flash('All fields are required', 'danger')
+            return redirect(url_for('signup'))
+        if password != confirm_password:
+            flash('Passwords do not match', 'danger')
+            return redirect(url_for('signup'))
+        if not accept_terms:
+            flash('You must accept the terms', 'danger')
+            return redirect(url_for('signup'))
+
+        if not supabase:
+            flash('Auth service not configured', 'danger')
+            return redirect(url_for('signup'))
+
+        try:
+            # Sign up user
+            res = supabase.auth.sign_up({
+                'email': email,
+                'password': password,
+                'options': {
+                    'data': {
+                        'full_name': full_name
+                    }
+                }
+            })
+            if not res or not getattr(res, 'user', None):
+                flash('Signup failed', 'danger')
+                return redirect(url_for('signup'))
+
+            # Optionally create a profile row (if using profiles table)
+            try:
+                supabase.table('profiles').insert({
+                    'id': res.user.id,
+                    'full_name': full_name,
+                    'email': email
+                }).execute()
+            except Exception as e:
+                logger.warning(f"Profile insert skipped/failed: {str(e)}")
+
+            flash('Signup successful. Please verify your email if required.', 'success')
+            return redirect(url_for('login'))
+        except Exception as e:
+            logger.error(f"Signup error: {str(e)}")
+            flash('Signup failed', 'danger')
+            return redirect(url_for('signup'))
+
     return render_template('signup.html')
+
+@app.route('/dashboard')
+def dashboard():
+    if 'user' not in session:
+        return redirect(url_for('login'))
+    return render_template('dashboard.html', user=session['user'])
+
+@app.route('/logout')
+def logout():
+    try:
+        if supabase:
+            supabase.auth.sign_out()
+    except Exception:
+        pass
+    session.pop('user', None)
+    flash('Logged out', 'success')
+    return redirect(url_for('login'))
 
 @app.errorhandler(404)
 def not_found(error):

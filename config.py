@@ -12,7 +12,11 @@ class Config:
     NEWS_API_KEY = os.environ.get('NEWS_API_KEY') or '8b335dc6442443eca479b1bf193cfc68'
     
     # Google Fact Check API (optional - free tier available)
-    GOOGLE_API_KEY = os.environ.get('GOOGLE_API_KEY') or 'AIzaSyBKsCJLkKVv7ghUEdo-SjnhKCZRo6c0ujQ'
+    GOOGLE_API_KEY = os.environ.get('GOOGLE_API_KEY') or None
+
+    # Supabase configuration
+    SUPABASE_URL = os.environ.get('SUPABASE_URL') or 'https://sibsqyupdktnajsdlrth.supabase.co'
+    SUPABASE_ANON_KEY = os.environ.get('SUPABASE_ANON_KEY') or 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNpYnNxeXVwZGt0bmFqc2RscnRoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjAzNzQ5MzAsImV4cCI6MjA3NTk1MDkzMH0.Sw62M2ajnMhVd3q-uE9qTq8_p1RVqZzxPpv0reCs7OU'
     
     # Rate limiting
     REQUESTS_PER_MINUTE = 60
